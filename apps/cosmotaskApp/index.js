@@ -1,4 +1,7 @@
-import registerRootComponent from 'expo/build/launch/registerRootComponent';
-import App from './App';
+console.log("CosmoTask App is starting...");
+
+
+import { registerRootComponent } from "expo";
+import App from "./App";
 
 registerRootComponent(App);

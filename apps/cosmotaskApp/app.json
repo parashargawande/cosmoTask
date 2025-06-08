@@ -18,18 +18,19 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.astrolabs.cosmotask"
+      "package": "com.nexphase.cosmictask"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "201a9fe0-e99b-47b4-bcee-bcfff3aed0b9"
+        "projectId": "e992ca9b-36af-4d96-a02d-a25e7a95a58d"
       }
     }
   }

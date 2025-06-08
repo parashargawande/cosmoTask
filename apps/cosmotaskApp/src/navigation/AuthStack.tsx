@@ -1,0 +1,23 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+
+import Login from "../screens/login";
+import RegisterUser from "../screens/registerUser/RegisterUser";
+
+
+export default function AuthStack() {
+  const Stack = createNativeStackNavigator();
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName="RegisterUser"
+      >
+        <Stack.Screen name="RegisterUser" component={RegisterUser} />
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
