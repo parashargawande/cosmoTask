@@ -12,8 +12,8 @@ import {
 } from "src/screens/todo";
 import {
   screenOptions as userAstroProfileScreenOptions,
-  UserAstroProfileScreen,
-} from "src/screens/astrology/UserAstroProfile";
+  AstrologyScreen,
+} from "src/screens/astrology";
 import {
   screenOptions as settingScreenOptions,
   SettingsScreen,
@@ -48,7 +48,7 @@ export default function AppStack() {
         />
         <Tab.Screen
           name="Astrology"
-          component={UserAstroProfileScreen}
+          component={AstrologyScreen}
           options={userAstroProfileScreenOptions}
         />
         <Tab.Screen

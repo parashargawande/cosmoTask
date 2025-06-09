@@ -2,18 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Text } from "react-native";
 import { Card, useTheme } from "react-native-paper";
 import Loader from "src/components/Loader";
-import { formatDate } from "src/utils/utils";
-import { createStyles } from "./styles";
+import { createStyles } from "../dashboard/styles";
+import { bindTodaysPredection } from "src/services/predection.service";
 
 interface HoroscopeData {
   date: string;
-  sun_sign: string;
-  json_horoscope_data: {
-    general: string;
-    love: string;
-    career: string;
-    health: string;
-  };
+  horoscope_data: string;
 }
 
 /**
@@ -28,11 +22,6 @@ function TodaysHoroscope() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const handleHoroscopeUpdate = useCallback((data: HoroscopeData) => {
-    setHoroscope(data);
-    setIsLoading(false);
-  }, []);
-
   const handleError = useCallback((err: unknown) => {
     const errorMessage =
       err instanceof Error ? err.message : "Failed to fetch today's horoscope";
@@ -41,21 +30,19 @@ function TodaysHoroscope() {
   }, []);
 
   useEffect(() => {
-    let unsubscribe: (() => void) | undefined;
+    const init = (predection) => {
+      setHoroscope(predection);
+      setIsLoading(false);
+    };
 
     try {
       setIsLoading(true);
       setError(null);
+      return bindTodaysPredection(init);
     } catch (err) {
       handleError(err);
     }
-
-    return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
-    };
-  }, [handleHoroscopeUpdate, handleError]);
+  }, [handleError]);
 
   const renderLoading = () => (
     <Card style={styles.card}>
@@ -74,41 +61,15 @@ function TodaysHoroscope() {
   );
 
   const renderHoroscope = () => (
-    <Card style={[styles.card, { marginBottom: 16 }]}>
+    <Card style={[styles.card, { marginBottom: 8 }]}>
       <Card.Content>
         <Text style={[styles.title, { color: theme.colors.primary }]}>
-          Today's Horoscope {formatDate()}
+          Today's Horoscope {horoscope?.date}
         </Text>
-        {horoscope?.json_horoscope_data && (
-          <>
-            <Text style={[styles.text, { color: theme.colors.onSurface }]}>
-              {horoscope.json_horoscope_data.general}
-            </Text>
-            <Text
-              style={[
-                styles.text,
-                { color: theme.colors.onSurface, marginTop: 8 },
-              ]}
-            >
-              Love: {horoscope.json_horoscope_data.love}
-            </Text>
-            <Text
-              style={[
-                styles.text,
-                { color: theme.colors.onSurface, marginTop: 8 },
-              ]}
-            >
-              Career: {horoscope.json_horoscope_data.career}
-            </Text>
-            <Text
-              style={[
-                styles.text,
-                { color: theme.colors.onSurface, marginTop: 8 },
-              ]}
-            >
-              Health: {horoscope.json_horoscope_data.health}
-            </Text>
-          </>
+        {horoscope?.horoscope_data && (
+          <Text style={[styles.text, { color: theme.colors.onSurface }]}>
+            {horoscope.horoscope_data}
+          </Text>
         )}
       </Card.Content>
     </Card>

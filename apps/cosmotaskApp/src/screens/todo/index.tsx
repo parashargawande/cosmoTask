@@ -10,11 +10,12 @@ import {
   Dialog,
   Portal,
   useTheme,
+  ActivityIndicator,
 } from "react-native-paper";
 
 import {
   createTodo,
-  readTodo,
+  bindTodos,
   updateTodo,
   deleteTodo,
 } from "src/services/todo.service";
@@ -23,20 +24,21 @@ import { useApp } from "src/context/appContext";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-
 interface TodoComponentProps {
   readonly navigation: any;
 }
 export interface Todo {
   id: string;
   title: string;
-  text: string;
+  description: string;
   tags: string[];
   completed: boolean;
+  createdAt?: any; // Firebase timestamp
 }
 
 export default function TodoComponent({ navigation }: TodoComponentProps) {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [loading, setLoading] = useState(true);
   const [input, setInput] = useState("");
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState<string[]>([]);
@@ -81,11 +83,12 @@ export default function TodoComponent({ navigation }: TodoComponentProps) {
   }, [user, navigation]);
 
   useEffect(() => {
-    const unsubscribe = readTodo(setTodos);
-
-    return () => {
-      unsubscribe();
+    const init = (todos) => {
+      setTodos(todos || []);
+      setLoading(false);
     };
+
+    return bindTodos(init);
   }, []);
 
   const addOrUpdateTodo = async () => {
@@ -140,7 +143,7 @@ export default function TodoComponent({ navigation }: TodoComponentProps) {
   const editTodo = (todo: Todo) => {
     setTitle(todo.title);
     setTags(todo.tags);
-    setInput(todo.text);
+    setInput(todo.description);
     setEditingTodo(todo);
     setModalVisible(true);
   };
@@ -178,19 +181,26 @@ export default function TodoComponent({ navigation }: TodoComponentProps) {
   );
 
   console.log("Todos:", todos);
-  
 
   return (
     <View style={[styles.container]}>
       <Text variant="titleLarge" style={[styles.title]}>
         Todo List
       </Text>
-      <FlatList
-        data={todos}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        style={{ marginTop: 16 }}
-      />
+      {loading ? (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator size="large" color={theme.colors.primary} />
+        </View>
+      ) : (
+        <FlatList
+          data={todos}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          style={{ marginTop: 16 }}
+        />
+      )}
 
       <Button mode="contained" onPress={() => setModalVisible(true)}>
         Add Todo
@@ -266,8 +276,18 @@ export default function TodoComponent({ navigation }: TodoComponentProps) {
                 color: theme.colors.onSurface,
               }}
             >
+              <Text style={{ fontWeight: "bold" }}>Title:</Text>{" "}
+              {viewingTodo?.title}
+            </Text>
+            <Text
+              style={{
+                marginBottom: 8,
+                fontSize: 16,
+                color: theme.colors.onSurface,
+              }}
+            >
               <Text style={{ fontWeight: "bold" }}>Description:</Text>{" "}
-              {viewingTodo?.text}
+              {viewingTodo?.description}
             </Text>
             <Text
               style={{
@@ -286,8 +306,20 @@ export default function TodoComponent({ navigation }: TodoComponentProps) {
                 color: theme.colors.onSurface,
               }}
             >
-              <Text style={{ fontWeight: "bold" }}>Completed:</Text>{" "}
-              {viewingTodo?.completed ? "Yes" : "No"}
+              <Text style={{ fontWeight: "bold" }}>Created:</Text>{" "}
+              {viewingTodo?.createdAt
+                ? new Date(viewingTodo.createdAt.toDate()).toLocaleString()
+                : "N/A"}
+            </Text>
+            <Text
+              style={{
+                marginBottom: 8,
+                fontSize: 16,
+                color: theme.colors.onSurface,
+              }}
+            >
+              <Text style={{ fontWeight: "bold" }}>Status:</Text>{" "}
+              {viewingTodo?.completed ? "Completed" : "Pending"}
             </Text>
           </Dialog.Content>
           <Dialog.Actions style={{ justifyContent: "center" }}>

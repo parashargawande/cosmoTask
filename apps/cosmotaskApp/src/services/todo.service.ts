@@ -11,9 +11,8 @@ import {
   updateDoc,
   deleteDoc,
 } from "src/services/firebase/firebaseService";
-import { bindSnapshotListner } from "./firebase";
 
-const createTodo = async (todo: any) => {
+export const createTodo = async (todo: any) => {
   const user = auth.currentUser;
   if (!user) {
     throw new Error("User not logged in");
@@ -25,7 +24,7 @@ const createTodo = async (todo: any) => {
   return await addDoc(todosRef, todo);
 };
 
-const readTodo = (setData: any) => {
+export const bindTodos = (setData: any) => {
   let unsubscribe;
   try {
     const user = auth.currentUser;
@@ -52,7 +51,7 @@ const readTodo = (setData: any) => {
   }
 };
 
-const updateTodo = async (todo: any) => {
+export const updateTodo = async (todo: any) => {
   const user = auth.currentUser;
   if (!user) {
     throw new Error("User not logged in");
@@ -68,7 +67,7 @@ const updateTodo = async (todo: any) => {
   return await updateDoc(todoDoc, data);
 };
 
-const deleteTodo = async (id: string) => {
+export const deleteTodo = async (id: string) => {
   const user = auth.currentUser;
   if (!user) {
     throw new Error("User not logged in");
@@ -78,5 +77,3 @@ const deleteTodo = async (id: string) => {
   console.log("Deleting todo with ID:", id);
   return await deleteDoc(todoDoc);
 };
-
-export { createTodo, readTodo, updateTodo, deleteTodo };

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "cosmotaskApp",
-    "slug": "cosmotaskApp",
+    "name": "cosmictask",
+    "slug": "cosmictask",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -30,7 +28,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "e992ca9b-36af-4d96-a02d-a25e7a95a58d"
+        "projectId": "71f1f826-6cec-4e22-b221-22f3e22116d2"
       }
     }
   }
