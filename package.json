@@ -5,9 +5,8 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "build:cosmotask": "cd apps/cosmotask && eas build -p android --profile production",
-    "android": "expo run:android",
-    "ios": "expo run:ios"
+    "cosmotask:prod": "cd apps/cosmotaskApp && eas build -p android --profile production",
+    "cosmotask:start": "cd apps/cosmotaskApp && yarn start"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
