@@ -5,6 +5,12 @@
   },
   "build": {
     "development": {
+      "env": {
+        "EXPO_USE_STATIC_BUNDLE": "true",
+        "EXPO_NO_CACHE": "true",
+        "EXPO_PUBLIC_API_URL": "https://api.cosmotask.app",
+        "EXPO_PUBLIC_API_WS_URL": "wss://api.cosmotask.app"
+      },
       "developmentClient": true,
       "distribution": "internal"
     },
@@ -12,6 +18,12 @@
       "distribution": "internal"
     },
     "production": {
+      "env": {
+        "EXPO_USE_STATIC_BUNDLE": "true",
+        "EXPO_NO_CACHE": "true",
+        "EXPO_PUBLIC_API_URL": "https://api.cosmotask.app",
+        "EXPO_PUBLIC_API_WS_URL": "wss://api.cosmotask.app"
+      },
       "android": {
         "buildType": "apk"
       },
