@@ -2,16 +2,13 @@
   "name": "cosmotasklandingpage",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://parashargawande.github.io/cosmoTask/",
+  "homepage": "https://parashargawande.github.io/cosmoTask",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "predeploy": "tsc -b && vite build",
-    "deploy": "gh-pages -d dist",
-    "postbuild": "copy dist/index.html dist/404.html"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

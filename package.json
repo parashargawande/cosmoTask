@@ -1,20 +1,20 @@
 {
   "private": true,
+  "homepage": "https://parashargawande.github.io/cosmoTask",
   "scripts": {
-    "build": "turbo run build",
     "dev": "turbo run dev",
+    "build": "turbo run build --force",
+    "deploy:web": "yarn build && gh-pages -d dist",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "cosmotask:prod": "cd apps/cosmotaskApp && eas build -p android --profile production",
-    "cosmotask:start": "cd apps/cosmotaskApp && yarn start",
-    "deploy": "turbo run deploy"
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
-    "turbo": "^2.5.4"
+    "turbo": "^2.5.4",
+    "gh-pages": "^6.3.0"
   },
-  "name": "with-vite",
+  "name": "cosmoTask",
   "packageManager": "yarn@1.22.22",
   "workspaces": [
     "apps/*",
