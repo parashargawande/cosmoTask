@@ -20,6 +20,12 @@ export const HOROSCOPE_DOC_PATH = "profile/horoscope";
 export const USER_INFO_DOC_PATH = "profile/info";
 export const PREDECTION_DOC_PATH = "today/predection";
 
+export const USER_REGISTRATION_STATUS = {
+  NOT_REGISTERED: "not_registered",
+  REGISTERED: "registered",
+  IN_PROGRESS: "in_progress",
+};
+
 export function westernSign(
   sign: keyof typeof vedicToWesternZodiacMap
 ): string | null {

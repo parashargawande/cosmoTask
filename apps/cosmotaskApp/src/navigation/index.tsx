@@ -3,10 +3,12 @@ import { AppProvider, useApp } from "src/context/appContext";
 import AppStack from "./AppStack";
 import AuthStack from "./AuthStack";
 import Loader from "src/components/Loader";
+import { USER_REGISTRATION_STATUS } from "src/utils/constants";
+import RegistrationStack from "./RegistrationStack";
 
 export default function Navigation() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { user, loading } = useApp();
+  const { user, userRegistrationStatus, loading } = useApp();
 
   useEffect(() => {
     setIsLoggedIn(!!user);
@@ -15,6 +17,29 @@ export default function Navigation() {
   if (loading) {
     return <Loader />;
   }
-
-  return <AppProvider>{isLoggedIn ? <AppStack /> : <AuthStack />}</AppProvider>;
+  if (
+    isLoggedIn &&
+    userRegistrationStatus === USER_REGISTRATION_STATUS.REGISTERED
+  ) {
+    return (
+      <AppProvider>
+        <AppStack />
+      </AppProvider>
+    );
+  }
+  if (
+    isLoggedIn &&
+    userRegistrationStatus === USER_REGISTRATION_STATUS.IN_PROGRESS
+  ) {
+    return (
+      <AppProvider>
+        <RegistrationStack />
+      </AppProvider>
+    );
+  }
+  return (
+    <AppProvider>
+      <AuthStack />
+    </AppProvider>
+  );
 }

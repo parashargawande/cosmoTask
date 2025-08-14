@@ -180,8 +180,6 @@ export default function TodoComponent({ navigation }: TodoComponentProps) {
     </Card>
   );
 
-  console.log("Todos:", todos);
-
   return (
     <View style={[styles.container]}>
       <Text variant="titleLarge" style={[styles.title]}>

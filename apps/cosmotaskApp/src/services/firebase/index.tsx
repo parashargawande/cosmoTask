@@ -45,7 +45,7 @@ const bindSnapshotListner = (
   return onSnapshot(docRef, snapshotHandler);
 };
 
-const getDocumentData = async (path: string) => {
+const getDocumentData = async (path: string = "") => {
   try {
     const user = auth.currentUser;
     if (!user) {

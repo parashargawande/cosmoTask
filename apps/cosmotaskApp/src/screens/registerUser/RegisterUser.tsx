@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { CommonActions, NavigationProp } from "@react-navigation/native";
 
-import DateTimePicker from "@react-native-community/datetimepicker";
+import CrossPlatformDatePicker from "./CrossPlatformDatePicker";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -98,7 +98,7 @@ const RegisterUser = ({ navigation }: IRegisterUser) => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name: "MainApp" }],
+          routes: [{ name: "Dashboard" }],
         })
       );
     } catch (error) {
@@ -180,17 +180,13 @@ const RegisterUser = ({ navigation }: IRegisterUser) => {
         )}
       />
       {showDatePicker && (
-        <DateTimePicker
-          value={birthTime} // Use birthTime state
+        <CrossPlatformDatePicker
+          setShowDtPicker={setShowDatePicker}
+          setValue={setValue}
+          dateTime={birthTime}
+          setDateTime={setBirthTime}
           mode="date"
-          display="default"
-          onChange={(event, selectedDate) => {
-            setShowDatePicker(false);
-            if (selectedDate) {
-              setBirthTime(selectedDate); // Update birthTime state
-              setValue("dob", selectedDate.toISOString()); // Update form value for dob
-            }
-          }}
+          fieldName="dob"
         />
       )}
       {errors.dob && <Text style={styles.error}>{errors.dob.message}</Text>}
@@ -219,17 +215,13 @@ const RegisterUser = ({ navigation }: IRegisterUser) => {
         )}
       />
       {showTimePicker && (
-        <DateTimePicker
-          value={birthTime}
+        <CrossPlatformDatePicker
+          setShowDtPicker={setShowTimePicker}
+          setValue={setValue}
+          dateTime={birthTime}
+          setDateTime={setBirthTime}
           mode="time"
-          display="default"
-          onChange={(event, selectedTime) => {
-            setShowTimePicker(false);
-            if (selectedTime) {
-              setBirthTime(selectedTime);
-              setValue("birthTime", selectedTime.toISOString());
-            }
-          }}
+          fieldName="birthTime"
         />
       )}
       {errors.birthTime && (

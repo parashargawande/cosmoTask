@@ -72,8 +72,6 @@ const bindKaalTiming = async (setData: any) => {
       updateDocumentData(formattedData, KAAL_TIMING_DOC_PATH);
     } else {
       const formattedData = formatApiData(data);
-      console.log("Using cached Kaal Timings Data:", formattedData);
-
       setData(formattedData);
     }
   }, KAAL_TIMING_DOC_PATH);

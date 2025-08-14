@@ -46,7 +46,6 @@ export default function KaalTiming() {
         createStatus(COMPONENT_STATUS.LOADING, "Loading kaal timings...")
       );
       getKallTimings((data: KaalTimingData) => {
-        console.log("Received kaal timing data:", data);
         init(data);
       });
     } catch (err) {

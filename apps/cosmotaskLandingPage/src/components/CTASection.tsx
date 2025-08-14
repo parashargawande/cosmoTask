@@ -10,6 +10,10 @@ export const CTASection = () => {
     });
   };
 
+  const handleTryWebVersion = () => {
+    window.open('https://parashargawande.github.io/cosmoTask/app/', '_blank');
+  };
+
   return (
     <section className="py-20 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-white">
       <div className="container mx-auto px-4 text-center">
@@ -34,6 +38,7 @@ export const CTASection = () => {
               size="lg"
               variant="outline"
               className="border-purple-400 text-purple-300 hover:bg-purple-500/20 text-lg px-8 py-3"
+              onClick={handleTryWebVersion}
             >
               Try Web Version
             </Button>

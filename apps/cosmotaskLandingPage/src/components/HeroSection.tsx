@@ -3,6 +3,9 @@ import { Badge } from "@/components/ui/badge";
 import { Smartphone } from "lucide-react";
 
 export const HeroSection = () => {
+  const handleTryWebVersion = () => {
+    window.open('https://parashargawande.github.io/cosmoTask/app/', '_blank');
+  };
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
       {/* Animated stars background */}
@@ -58,6 +61,7 @@ export const HeroSection = () => {
                 size="lg"
                 variant="outline"
                 className="border-purple-400 text-purple-300 hover:bg-purple-500/20 w-full sm:w-auto"
+                onClick={handleTryWebVersion}
               >
                 Try Web Version
               </Button>
